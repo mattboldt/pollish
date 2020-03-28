@@ -1,0 +1,6 @@
+- Create host and room models
+- home page w/ create room action
+- set cookie and create host after a room is created
+- Create a Poll model
+- Create Vote model
+- Create a Voter model
