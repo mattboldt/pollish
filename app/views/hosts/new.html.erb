@@ -1,0 +1,13 @@
+<h1>Create a new room</h1>
+
+<%= form_with model: @host, local: true do |f| %>
+  Your name
+  <%= f.text_field :name %>
+  <br>
+  Room name
+  <%= f.fields_for :rooms do |hf| %>
+    <%= hf.text_field :name %>
+  <% end %>
+  <br>
+  <%= f.submit %>
+<% end %>

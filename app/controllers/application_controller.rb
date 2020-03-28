@@ -1,23 +1,17 @@
 class ApplicationController < ActionController::Base
-  def current_host
-    @current_host ||= if (id = cookies[:host_id]).present?
-      if (existing_host = Host.find_by(id: id)).present?
-        existing_host
-      else
-        cookies.delete :host_id
-        create_new_host
-      end
-    else
-      create_new_host
-    end
+  helper_method :current_host
+
+  before_action :set_room
+
+  def set_room
+    @room = Room.find(params[:id]) if params[:id]
   end
 
-  private
+  def current_host
+    @current_host ||= begin
+      id = cookies[:host_id].to_i
 
-  def create_new_host
-    new_host = Host.create
-    cookies[:host_id] = new_host.id
-
-    new_host
+      @room.host if id.present? && @room.present? && @room.host_id == id
+    end
   end
 end
