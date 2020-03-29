@@ -1,2 +1,5 @@
-<h1><%= @room.host.name %>'s Room: <%= @room.name %></h1>
+<% if host_owns_room? %>
+  You are the host
+<% end %>
 
+<h1><%= current_room.host.name %>'s Room: <%= current_room.name %> (<%= current_room.hashid %>)</h1>

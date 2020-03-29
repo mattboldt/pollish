@@ -5,7 +5,7 @@
   <%= f.text_field :name %>
   <br>
   Room name
-  <%= f.fields_for :rooms do |hf| %>
+  <%= f.fields_for :rooms, @room do |hf| %>
     <%= hf.text_field :name %>
   <% end %>
   <br>

@@ -5,10 +5,33 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
+import consumer from "../channels/consumer"
 
-const Hello = props => (
-  <div>Hello {props.name}!</div>
-)
+const Hello = props => {
+  const [data, setData] = React.useState(null)
+  // const ws = new WebSocket('ws://localhost:3000/cable')
+
+  const ws = consumer.subscriptions.create({ channel: "RoomChannel", id: 'oNtN' })
+
+  const sendMessage = () => {
+    ws.send(JSON.stringify({ sent_by: "Paul", body: "This is a cool chat app." }))
+  }
+
+  React.useEffect(() => {
+    ws.onopen = () => {
+      // on connecting, do nothing but log it to the console
+      console.log('connected')
+    }
+
+    ws.onmessage = evt => {
+      // listen to data sent from the websocket server
+      const message = JSON.parse(evt.data)
+      console.log(message)
+    }
+  }, [])
+
+  return <div>Hello {props.name}! {data} <button onClick={sendMessage}>send</button></div>
+}
 
 Hello.defaultProps = {
   name: 'David'
