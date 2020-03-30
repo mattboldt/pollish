@@ -10,20 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_28_201033) do
+ActiveRecord::Schema.define(version: 2020_03_30_023052) do
+
+  create_table "polls", force: :cascade do |t|
+    t.integer "room_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_polls_on_room_id"
+  end
 
   create_table "rooms", force: :cascade do |t|
-    t.integer "host_id"
+    t.integer "voter_id"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["host_id"], name: "index_rooms_on_host_id"
+    t.index ["voter_id"], name: "index_rooms_on_voter_id"
   end
 
   create_table "voters", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.integer "poll_id"
+    t.integer "voter_id"
+    t.integer "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["poll_id"], name: "index_votes_on_poll_id"
+    t.index ["voter_id"], name: "index_votes_on_voter_id"
   end
 
 end
