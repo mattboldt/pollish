@@ -7,10 +7,12 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
+    "antd": "^4.1.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.1.2",
     "react_ujs": "^2.6.1",
     "turbolinks": "^5.2.0"
   },
@@ -22,6 +24,7 @@
     "@storybook/addons": "^5.3.18",
     "@storybook/react": "^5.3.18",
     "babel-loader": "^8.1.0",
+    "babel-plugin-import": "^1.13.0",
     "webpack-dev-server": "^3.10.3"
   },
   "scripts": {

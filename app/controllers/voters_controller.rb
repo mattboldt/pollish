@@ -12,10 +12,9 @@ class VotersController < ApplicationController
     if @voter.save
       cookies.encrypted[:voter_id] = @voter.id
 
-      redirect_to current_room || @voter.rooms.last
+      render json: { voter: @voter, room: current_room || @voter.rooms.last }
     else
-      flash.now[:error] = 'Could not create room'
-      render :new
+      render json: { voter: @voter }, status: :bad_request
     end
   end
 

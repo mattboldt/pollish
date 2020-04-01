@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  skip_before_action :verify_authenticity_token
+
   helper_method :current_voter, :current_room, :voter_owns_room?
 
   def current_room
