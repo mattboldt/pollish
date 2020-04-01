@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :rooms
     resources :polls
     resources :voters
+    resources :votes
   end
 
   match "*path", to: "application#index", via: :all

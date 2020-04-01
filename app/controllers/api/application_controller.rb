@@ -4,8 +4,8 @@ class Api::ApplicationController < ActionController::API
   end
 
   def current_voter
-    @current_voter ||= if session[:voter_id].present?
-      Voter.find_by(id: session[:voter_id].to_i)
+    @current_voter ||= if session[:user_id].present?
+      User.find_by(id: session[:user_id].to_i)
     end
   end
 
@@ -14,6 +14,6 @@ class Api::ApplicationController < ActionController::API
   end
 
   def room_id
-    params[:room_id].presence || params[:id].presence
+    params[:room_id].presence
   end
 end
