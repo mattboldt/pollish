@@ -1,4 +1,4 @@
-class RoomsController < ApplicationController
+class Api::RoomsController < Api::ApplicationController
   def show
     @poll = current_room.polls.last
     @new_poll = current_room.polls.build

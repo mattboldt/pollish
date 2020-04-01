@@ -1,4 +1,4 @@
-class PollsController < ApplicationController
+class Api::PollsController < Api::ApplicationController
   def create
     if (poll = current_room.polls.create)
       render json: poll

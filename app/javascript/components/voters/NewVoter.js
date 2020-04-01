@@ -15,16 +15,16 @@ const NewVoter = () => {
   const [form] = Form.useForm()
 
   const onFinish = (values) => {
-    fetch('/voters', {
+    fetch('/api/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ voter: values }),
+      body: JSON.stringify({ user: values }),
     })
       .then((res) => res.json())
       .then((json) => {
-        history.push(`/rooms/${json.room.id}`)
+        history.push(`/rooms/${json.room_id}`)
       })
   }
 

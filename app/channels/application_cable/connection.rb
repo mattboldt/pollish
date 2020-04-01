@@ -9,7 +9,7 @@ module ApplicationCable
     private
 
     def find_verified_voter
-      if (verified_voter = Voter.find_by(id: cookies.encrypted[:voter_id]))
+      if (verified_voter = Voter.find_by(id: session[:voter_id]))
         verified_voter
       else
         reject_unauthorized_connection

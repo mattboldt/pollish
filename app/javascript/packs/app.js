@@ -8,8 +8,16 @@ import PropTypes from 'prop-types'
 import consumer from '../channels/consumer'
 
 import NewVoter from '../components/voters/NewVoter'
+import Rooms from '../components/rooms/Rooms'
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams,
+} from 'react-router-dom'
 
 import 'antd/dist/antd.css'
 
@@ -26,6 +34,9 @@ const App = () => {
         </nav>
 
         <Switch>
+          <Route path="/rooms">
+            <Rooms />
+          </Route>
           <Route path="/">
             <NewVoter />
           </Route>
