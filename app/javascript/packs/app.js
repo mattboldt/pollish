@@ -4,11 +4,11 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
 import consumer from '../channels/consumer'
 
 import NewVoter from '../components/voters/NewVoter'
 import Rooms from '../components/rooms/Rooms'
+import { AppContext } from '../components/AppContext'
 
 import {
   BrowserRouter as Router,
@@ -47,5 +47,11 @@ const App = () => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(<App />, document.body.appendChild(document.createElement('div')))
+  const initialState = JSON.parse(document.querySelector('meta[name="app-context"]').content)
+  ReactDOM.render(
+    <AppContext.Provider value={initialState}>
+      <App />
+    </AppContext.Provider>,
+    document.body.appendChild(document.createElement('div'))
+  )
 })

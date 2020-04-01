@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { useHistory } from 'react-router-dom'
 import { Layout, Form, Input, Button, Select } from 'antd'
+
+import { AppContext } from '../AppContext'
 
 const { Option } = Select
 const layout = {
@@ -11,6 +13,8 @@ const layout = {
 }
 
 const NewVoter = () => {
+  const appContext = useContext(AppContext)
+  console.log(appContext)
   const history = useHistory()
   const [form] = Form.useForm()
 
