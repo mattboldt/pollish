@@ -5,7 +5,7 @@ class Api::PollsController < Api::ApplicationController
   end
 
   def create
-    poll = Poll.create_with_room(current_room, 'Generic Name', params[:options])
+    poll = Poll.create_with_room(current_room, 'New Poll', params[:options])
 
     if poll
       render json: poll.as_json(include: :options, methods: :aggregate)

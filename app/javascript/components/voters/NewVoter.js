@@ -1,30 +1,22 @@
 import React, { useContext } from 'react'
-
 import { useHistory } from 'react-router-dom'
-import { Layout, Form, Input, Button, Select } from 'antd'
+import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { useForm } from 'react-hook-form'
 
 import { AppContext } from '../AppContext'
 
-const { Option } = Select
-const layout = {
-  wrapperCol: {
-    span: 16,
-  },
-}
-
 const NewVoter = () => {
   const appContext = useContext(AppContext)
-  console.log(appContext)
   const history = useHistory()
-  const [form] = Form.useForm()
+  const { register, handleSubmit, watch, errors } = useForm()
 
-  const onFinish = (values) => {
+  const onSubmit = (data) => {
     fetch('/api/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ user: values }),
+      body: JSON.stringify({ user: data }),
     })
       .then((res) => res.json())
       .then((json) => {
@@ -37,37 +29,26 @@ const NewVoter = () => {
   }
 
   return (
-    <Layout className="layout">
-      <Layout.Content style={{ padding: '0 50px' }}>
-        <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
-          <Form.Item
-            name="name"
-            label="Name"
-            rules={[
-              {
-                required: true,
-              },
-            ]}>
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name={['rooms_attributes', 0, 'name']}
+    <Container>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form.Group controlId="name">
+          <Form.Label>Name</Form.Label>
+          <Form.Control name="name" ref={register({ required: true })} />
+        </Form.Group>
+        <Form.Group controlId="rooms">
+          <Form.Label>Room Name</Form.Label>
+          <Form.Control
+            name="rooms_attributes[0][name]"
             label="Room Name"
-            rules={[
-              {
-                required: true,
-              },
-            ]}>
-            <Input />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </Layout.Content>
-    </Layout>
+            ref={register({ required: true })}
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </Container>
   )
 }
 

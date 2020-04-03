@@ -19,8 +19,6 @@ import {
   useParams,
 } from 'react-router-dom'
 
-import 'antd/dist/antd.css'
-
 const App = () => {
   return (
     <Router>
