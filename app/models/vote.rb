@@ -1,2 +1,4 @@
-class Vote < Tadpoll::Vote
+class Vote < ApplicationRecord
+  belongs_to :user
+  belongs_to :option
 end

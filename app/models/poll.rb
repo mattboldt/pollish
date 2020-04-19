@@ -1,5 +1,6 @@
-class Poll < Tadpoll::Poll
+class Poll < ApplicationRecord
   belongs_to :room
+  has_many :options, dependent: :destroy
 
   def aggregate
     votes.joins(:option).group('options.name').count

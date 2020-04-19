@@ -13,8 +13,8 @@
 ActiveRecord::Schema.define(version: 2020_04_01_160122) do
 
   create_table "options", force: :cascade do |t|
-    t.string "name"
     t.integer "poll_id"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["poll_id"], name: "index_options_on_poll_id"
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 2020_04_01_160122) do
 
   create_table "rooms", force: :cascade do |t|
     t.integer "user_id"
-    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_rooms_on_user_id"
@@ -43,16 +42,12 @@ ActiveRecord::Schema.define(version: 2020_04_01_160122) do
   end
 
   create_table "votes", force: :cascade do |t|
-    t.string "voter_type"
-    t.integer "voter_id"
-    t.integer "poll_id"
+    t.integer "user_id"
     t.integer "option_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["option_id"], name: "index_votes_on_option_id"
-    t.index ["poll_id"], name: "index_votes_on_poll_id"
-    t.index ["voter_id", "voter_type"], name: "index_votes_on_voter_id_and_voter_type"
-    t.index ["voter_type", "voter_id"], name: "index_votes_on_voter_type_and_voter_id"
+    t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
 end
