@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2020_04_01_160122) do
 
   create_table "rooms", force: :cascade do |t|
     t.integer "user_id"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_rooms_on_user_id"

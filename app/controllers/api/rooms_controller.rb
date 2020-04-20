@@ -1,12 +1,6 @@
 class Api::RoomsController < Api::ApplicationController
   def show
-    @poll = current_room.polls.last
-    @new_poll = current_room.polls.build
-  end
-
-  private
-
-  def room_params
-    params.require(:room).permit(polls_attributes: [])
+    room = Room.find(params[:id])
+    render json: Api::RoomSerializer.new(room, include: [:latest_poll, :'latest_poll.options']).serialized_json
   end
 end

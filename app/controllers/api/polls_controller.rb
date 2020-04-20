@@ -1,14 +1,9 @@
 class Api::PollsController < Api::ApplicationController
-  def index
-    poll = Poll.where(room: current_room).last
-    render json: poll.as_json(include: :options, methods: :aggregate)
-  end
-
   def create
-    poll = Poll.create_with_room(current_room, 'New Poll', params[:options])
+    poll = current_room.polls.new(poll_params)
 
-    if poll
-      render json: poll.as_json(include: :options, methods: :aggregate)
+    if poll.save
+      render json: Api::PollSerializer.new(poll).serialized_json
     else
       head :bad_request
     end
@@ -25,4 +20,8 @@ class Api::PollsController < Api::ApplicationController
   end
 
   private
+
+  def poll_params
+    params.require(:poll).permit(options_attributes: [:name])
+  end
 end

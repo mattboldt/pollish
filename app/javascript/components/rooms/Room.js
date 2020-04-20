@@ -20,9 +20,9 @@ const Room = () => {
   }, [])
 
   const fetchCurrentPoll = () => {
-    fetch(`/api/polls?room_id=${roomId}`)
+    fetch(`/api/rooms/${roomId}`)
       .then((res) => res.json())
-      .then((json) => setPoll(json))
+      .then(({ data, included }) => setPoll(included[0]))
   }
 
   const onSubmit = (data) => {
@@ -31,10 +31,12 @@ const Room = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ...data, room_id: roomId }),
+      body: JSON.stringify({ poll: data, room_id: roomId }),
     })
       .then((res) => res.json())
-      .then((json) => setPoll(json))
+      .then(({ data }) => {
+        setPoll({ ...data.attributes, ...data.relationships })
+      })
   }
 
   const vote = (option) => {
@@ -61,11 +63,11 @@ const Room = () => {
     <Container>
       {poll && (
         <div>
-          <h3>{poll.name}</h3>
-          <p>Results: {JSON.stringify(poll.aggregate)}</p>
+          <h3>{poll.attributes.name}</h3>
+          <p>Results: {JSON.stringify(poll.attributes.aggregate)}</p>
 
           <Row>
-            {poll.options.map((o) => (
+            {poll.relationships.options.data.map((o) => (
               <Col key={o.id}>
                 <Button size="lg" className="p-5" onClick={() => vote(o)}>
                   {o.name}
@@ -77,11 +79,12 @@ const Room = () => {
       )}
       {!poll && (
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <Form.Label>Options</Form.Label>
+          <Form.Label>New Poll</Form.Label>
+
           {initialValues.options.map((option, idx) => (
             <Form.Group key={`option-${option}`}>
               <Form.Control
-                name={`options[${idx}]`}
+                name={`options_attributes[${idx}][name]`}
                 defaultValue={option}
                 ref={register}></Form.Control>
             </Form.Group>

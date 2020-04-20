@@ -6,7 +6,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import consumer from '../channels/consumer'
 
-import NewVoter from '../components/voters/NewVoter'
+import CreateRoom from '../components/rooms/CreateRoom'
 import Rooms from '../components/rooms/Rooms'
 import { AppContext } from '../components/AppContext'
 
@@ -36,7 +36,7 @@ const App = () => {
             <Rooms />
           </Route>
           <Route path="/">
-            <NewVoter />
+            <CreateRoom />
           </Route>
         </Switch>
       </div>
